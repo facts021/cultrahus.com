@@ -1,0 +1,6 @@
+{
+  "name": "Cultrahus Sangam 2026",
+  "description": "National Theatre Conclave, Cultural Parliament, and Performing Arts Festival held on October 18, 2026, in New Delhi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

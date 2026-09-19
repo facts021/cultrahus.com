@@ -1,0 +1,71 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        (request.auth.token.email == "factsunlimited746@gmail.com" && request.auth.token.email_verified == true)
+      );
+    }
+
+    function isValidTicket(data) {
+      return data.fullName is string && data.fullName.size() <= 100 && data.fullName.size() > 0
+        && data.email is string && data.email.size() <= 120 && data.email.size() > 0
+        && data.whatsappPhone is string && data.whatsappPhone.matches('^[0-9]{10}$')
+        && data.ticketCode is string && data.ticketCode.size() <= 64
+        && data.tier in ['classic', 'royal', 'sovereign']
+        && data.totalAmount is number && data.totalAmount >= 0;
+    }
+
+    function isValidDelegate(data) {
+      return data.fullName is string && data.fullName.size() <= 100 && data.fullName.size() > 0
+        && data.email is string && data.email.size() <= 120 && data.email.size() > 0
+        && data.whatsappPhone is string && data.whatsappPhone.matches('^[0-9]{10}$')
+        && data.accreditationCode is string && data.accreditationCode.size() <= 64
+        && data.institution is string && data.institution.size() <= 150
+        && data.cityState is string && data.cityState.size() <= 100;
+    }
+
+    // Tickets collection
+    match /tickets/{ticketId} {
+      allow create: if isValidId(ticketId) && isValidTicket(incoming());
+      allow read: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    // Delegates collection
+    match /delegates/{delegateId} {
+      allow create: if isValidId(delegateId) && isValidDelegate(incoming());
+      allow read: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    // Test connection endpoint
+    match /test/{testId} {
+      allow read, write: if true;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root {
+  --color-olive-dark: #222917;
+  --color-olive-deep: #2e3720;
+  --color-olive-primary: #3d4a2c;
+  --color-olive-medium: #4e5f38;
+  --color-olive-light: #718653;
+  --color-olive-subtle: #8e9f73;
+  --color-beige-bg: #f7f4ec;
+  --color-beige-surface: #fcfaf5;
+  --color-beige-card: #f4efe4;
+  --color-beige-border: #dfd7c3;
+  --color-beige-muted: #e7dfce;
+  --color-gold-accent: #c4a159;
+}
+
+body {
+  background-color: #f7f4ec;
+  color: #242c18;
+}
+
+/* Custom scrollbars with olive accent */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0ebd9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #718653;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4e5f38;
+}

@@ -1,0 +1,165 @@
+{
+  "entities": {
+    "ticket": {
+      "title": "Festival Ticket",
+      "description": "Conclave pass and festival celebration ticket record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique record identifier"
+        },
+        "ticketCode": {
+          "type": "string",
+          "description": "Verifiable pass code (e.g., SNGM-TKT-...)"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Passholder full name",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email address",
+          "format": "email",
+          "maxLength": 120
+        },
+        "whatsappPhone": {
+          "type": "string",
+          "description": "10-digit WhatsApp phone number",
+          "pattern": "^[0-9]{10}$"
+        },
+        "tier": {
+          "type": "string",
+          "description": "Pass tier name",
+          "enum": ["classic", "royal", "sovereign"]
+        },
+        "tierName": {
+          "type": "string",
+          "description": "Display tier label"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of passes booked"
+        },
+        "foodAddon": {
+          "type": "string",
+          "description": "Dining package inclusion"
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Total fee paid in INR"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code"
+        },
+        "status": {
+          "type": "string",
+          "description": "Booking status"
+        },
+        "festivalDate": {
+          "type": "string",
+          "description": "Event date"
+        },
+        "venue": {
+          "type": "string",
+          "description": "Event venue"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["ticketCode", "fullName", "email", "whatsappPhone", "tier", "totalAmount"]
+    },
+    "delegate": {
+      "title": "Delegate Accreditation",
+      "description": "National youth delegate registration record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique delegate identifier"
+        },
+        "accreditationCode": {
+          "type": "string",
+          "description": "Accreditation badge code (e.g., SNGM-DEL-...)"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Delegate full name",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email address",
+          "format": "email",
+          "maxLength": 120
+        },
+        "whatsappPhone": {
+          "type": "string",
+          "description": "10-digit WhatsApp phone number",
+          "pattern": "^[0-9]{10}$"
+        },
+        "institution": {
+          "type": "string",
+          "description": "University, college, or theatre organization",
+          "maxLength": 150
+        },
+        "cityState": {
+          "type": "string",
+          "description": "City and State represented",
+          "maxLength": 100
+        },
+        "participationCategory": {
+          "type": "string",
+          "description": "Category of participation"
+        },
+        "parliamentTrack": {
+          "type": "string",
+          "description": "Selected debate or cultural track"
+        },
+        "priorExperience": {
+          "type": "string",
+          "description": "Theatre or cultural background synopsis"
+        },
+        "registrationFee": {
+          "type": "number",
+          "description": "Accreditation fee in INR"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code"
+        },
+        "status": {
+          "type": "string",
+          "description": "Accreditation status"
+        },
+        "festivalDate": {
+          "type": "string",
+          "description": "Festival date"
+        },
+        "venue": {
+          "type": "string",
+          "description": "Venue details"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["accreditationCode", "fullName", "email", "whatsappPhone", "institution", "cityState"]
+    }
+  },
+  "firestore": {
+    "/tickets/{ticketId}": {
+      "schema": "ticket",
+      "description": "Collection of booked festival conclave tickets"
+    },
+    "/delegates/{delegateId}": {
+      "schema": "delegate",
+      "description": "Collection of accredited festival delegates"
+    }
+  }
+}
